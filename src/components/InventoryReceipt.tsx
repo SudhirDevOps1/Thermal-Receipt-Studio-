@@ -410,21 +410,88 @@ export default function InventoryReceipt() {
     }
   }, []);
 
-  // Generate QR as PNG data URL
+  // Generate QR as PNG data URL with FULL working invoice details
+  // When someone scans this QR, they see the complete bill:
+  //   Shop name, invoice no, date, time, customer, payment mode,
+  //   every item with qty/unit/price/total, subtotal, discount,
+  //   CGST, SGST, grand total, and notes.
   const genQR = useCallback(() => {
-    const qrText = upiId.trim()
-      ? `upi://pay?pa=${encodeURIComponent(upiId.trim())}&pn=${encodeURIComponent(shopName)}&am=${grandTotal.toFixed(2)}&cu=INR&tn=${encodeURIComponent(invoiceNo)}`
-      : `Invoice: ${invoiceNo} | ${shopName} | Total: ₹${grandTotal.toFixed(2)} | ${new Date().toLocaleDateString('en-IN')}`;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    // If UPI ID is set, generate a UPI payment QR
+    if (upiId.trim()) {
+      const qrText = `upi://pay?pa=${encodeURIComponent(upiId.trim())}&pn=${encodeURIComponent(shopName)}&am=${grandTotal.toFixed(2)}&cu=INR&tn=${encodeURIComponent(invoiceNo)}`;
+      QRCodeLib.toDataURL(qrText, {
+        width: 200, margin: 1, errorCorrectionLevel: 'M',
+        color: { dark: '#000000', light: '#fef9e6' }
+      })
+        .then(url => { setQrDataUrl(url); })
+        .catch(() => setTimeout(() => genQR(), 300));
+      return;
+    }
+
+    // Build a full readable invoice text for the QR
+    const lines: string[] = [];
+    lines.push(`=============================`);
+    lines.push(shopName);
+    lines.push(`=============================`);
+    lines.push(`Invoice : ${invoiceNo}`);
+    lines.push(`Date    : ${dateStr}`);
+    lines.push(`Time    : ${timeStr}`);
+    if (customerName) lines.push(`Customer: ${customerName}`);
+    lines.push(`Payment : ${paymentMode}`);
+    lines.push(`-----------------------------`);
+
+    // All items with number, name, qty, unit, rate, amount
+    items.forEach((it, idx) => {
+      const amt = (it.qty * it.price).toFixed(0);
+      // Keep names short so QR stays scannable
+      const nm = it.name.length > 18 ? it.name.slice(0, 18) + '..' : it.name;
+      lines.push(`${idx + 1}. ${nm}`);
+      lines.push(`   ${it.qty}${it.unit} x ${currency.symbol}${it.price} = ${currency.symbol}${amt}`);
+    });
+
+    lines.push(`-----------------------------`);
+    lines.push(`Subtotal  : ${currency.symbol}${subtotal.toFixed(2)}`);
+    if (discount > 0) lines.push(`Discount  : -${currency.symbol}${discountAmt.toFixed(2)} (${discount}%)`);
+    if (cgstRate > 0) lines.push(`CGST ${cgstRate}%  : +${currency.symbol}${cgstAmt.toFixed(2)}`);
+    if (sgstRate > 0) lines.push(`SGST ${sgstRate}%  : +${currency.symbol}${sgstAmt.toFixed(2)}`);
+    lines.push(`=============================`);
+    lines.push(`TOTAL     : ${currency.symbol}${grandTotal.toFixed(2)}`);
+    lines.push(`=============================`);
+
+    if (paymentMode === 'Cash' && cashReceived > 0) {
+      lines.push(`Cash Rcvd : ${currency.symbol}${cashReceived.toFixed(2)}`);
+      const bal = cashReceived - grandTotal;
+      lines.push(`${bal >= 0 ? 'Change' : 'Due'}     : ${currency.symbol}${Math.abs(bal).toFixed(2)}`);
+    }
+
+    if (notes) lines.push(`Note: ${notes}`);
+
+    const qrText = lines.join('\n');
+
+    // Use error correction level based on data size for best scan reliability
+    const ecLevel = qrText.length > 800 ? 'L' : qrText.length > 500 ? 'M' : 'Q';
 
     QRCodeLib.toDataURL(qrText, {
-      width: 180,
-      margin: 1,
-      errorCorrectionLevel: 'H',
+      width: 220, margin: 1,
+      errorCorrectionLevel: ecLevel as any,
       color: { dark: '#000000', light: '#fef9e6' }
     })
       .then(url => { setQrDataUrl(url); })
-      .catch(() => setTimeout(() => genQR(), 300));
-  }, [upiId, shopName, grandTotal, invoiceNo]);
+      .catch(() => {
+        // If data is too long, fall back to a shorter version
+        const shortText = `${invoiceNo} | ${shopName}\n${dateStr} ${timeStr}\n${items.length} items | Total: ${currency.symbol}${grandTotal.toFixed(2)}`;
+        QRCodeLib.toDataURL(shortText, {
+          width: 200, margin: 1, errorCorrectionLevel: 'M',
+          color: { dark: '#000000', light: '#fef9e6' }
+        })
+          .then(url => { setQrDataUrl(url); })
+          .catch(() => setTimeout(() => genQR(), 400));
+      });
+  }, [upiId, shopName, grandTotal, invoiceNo, items, customerName, paymentMode, currency, subtotal, discount, discountAmt, cgstRate, sgstRate, cgstAmt, sgstAmt, cashReceived, notes]);
 
   useEffect(() => {
     genBarcode();

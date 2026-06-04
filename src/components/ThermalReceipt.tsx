@@ -40,12 +40,28 @@ export default function ThermalReceipt() {
   const clipperRef = useRef<HTMLDivElement>(null);
   const qrGenerated = useRef(false);
 
-  // Generate QR as an image data URL so html2canvas/PDF exports capture it reliably.
+  // Generate QR with full receipt details — scan it to see everything
   const genQR = useCallback(() => {
-    QRCodeLib.toDataURL(`Receipt: ${header} | ${client} | ${amount} | ${new Date().toLocaleDateString()}`, {
-      width: 160,
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    const lines: string[] = [];
+    lines.push(header);
+    lines.push(`"${tagline}"`);
+    lines.push(`Client: ${client}`);
+    lines.push(`Date  : ${date || dateStr}`);
+    lines.push(`Time  : ${timeStr}`);
+    if (stat1L) lines.push(`${stat1L}: ${stat1V}`);
+    if (stat2L) lines.push(`${stat2L}: ${stat2V}`);
+    if (stat3L) lines.push(`${stat3L}: ${stat3V}`);
+    if (stat4L) lines.push(`${stat4L}: ${stat4V}`);
+    lines.push(`TOTAL : ${amount}`);
+
+    QRCodeLib.toDataURL(lines.join('\n'), {
+      width: 180,
       margin: 1,
-      errorCorrectionLevel: 'H',
+      errorCorrectionLevel: 'Q',
       color: { dark: '#000000', light: '#fef9e6' }
     })
       .then(url => {
@@ -53,7 +69,7 @@ export default function ThermalReceipt() {
         qrGenerated.current = true;
       })
       .catch(() => setTimeout(() => genQR(), 300));
-  }, [header, client, amount]);
+  }, [header, tagline, client, date, amount, stat1L, stat1V, stat2L, stat2V, stat3L, stat3V, stat4L, stat4V]);
 
   // Barcode
   useEffect(() => {
