@@ -296,10 +296,11 @@ export default function InventoryReceipt() {
   const [sgstRate, setSgstRate] = useState(2.5);
   const [nextId, setNextId] = useState(6);
   const [animate, setAnimate] = useState(false);
-  const [viewMode, setViewMode] = useState<'table' | 'card'>('card');
+  const [viewMode, setViewMode] = useState<'table' | 'card'>('table');
   const [invoiceNo, setInvoiceNo] = useState(`INV-${Date.now().toString().slice(-6)}`);
   const [paymentMode, setPaymentMode] = useState('Cash');
   const [upiId, setUpiId] = useState('');
+  const [qrMode, setQrMode] = useState<'details' | 'upi'>('details');
   const [cashReceived, setCashReceived] = useState(0);
   const [notes, setNotes] = useState('Goods once sold will not be returned.');
   const [exportScale, setExportScale] = useState(4);
@@ -420,8 +421,9 @@ export default function InventoryReceipt() {
     const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
     const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
 
-    // If UPI ID is set, generate a UPI payment QR
-    if (upiId.trim()) {
+    // If UPI mode is selected and UPI ID is set, generate a payment QR.
+    // Default mode remains detailed invoice QR so scanning shows all bill details.
+    if (qrMode === 'upi' && upiId.trim()) {
       const qrText = `upi://pay?pa=${encodeURIComponent(upiId.trim())}&pn=${encodeURIComponent(shopName)}&am=${grandTotal.toFixed(2)}&cu=INR&tn=${encodeURIComponent(invoiceNo)}`;
       QRCodeLib.toDataURL(qrText, {
         width: 200, margin: 1, errorCorrectionLevel: 'M',
@@ -491,7 +493,7 @@ export default function InventoryReceipt() {
           .then(url => { setQrDataUrl(url); })
           .catch(() => setTimeout(() => genQR(), 400));
       });
-  }, [upiId, shopName, grandTotal, invoiceNo, items, customerName, paymentMode, currency, subtotal, discount, discountAmt, cgstRate, sgstRate, cgstAmt, sgstAmt, cashReceived, notes]);
+  }, [qrMode, upiId, shopName, grandTotal, invoiceNo, items, customerName, paymentMode, currency, subtotal, discount, discountAmt, cgstRate, sgstRate, cgstAmt, sgstAmt, cashReceived, notes]);
 
   useEffect(() => {
     genBarcode();
@@ -502,12 +504,12 @@ export default function InventoryReceipt() {
   // Auto-save draft every 10 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      const draft = { shopName, shopTagline, shopPhone, shopAddress, customerName, items, discount, cgstRate, sgstRate, invoiceNo, paymentMode, upiId, cashReceived, notes, template };
+      const draft = { shopName, shopTagline, shopPhone, shopAddress, customerName, items, discount, cgstRate, sgstRate, invoiceNo, paymentMode, upiId, qrMode, cashReceived, notes, template };
       localStorage.setItem('inv_draft', JSON.stringify(draft));
       setLastSaved(new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }));
     }, 10000);
     return () => clearInterval(timer);
-  }, [shopName, shopTagline, shopPhone, shopAddress, customerName, items, discount, cgstRate, sgstRate, invoiceNo, paymentMode, upiId, cashReceived, notes, template]);
+  }, [shopName, shopTagline, shopPhone, shopAddress, customerName, items, discount, cgstRate, sgstRate, invoiceNo, paymentMode, upiId, qrMode, cashReceived, notes, template]);
 
   // Load draft on mount
   useEffect(() => {
@@ -526,6 +528,7 @@ export default function InventoryReceipt() {
         setInvoiceNo(draft.invoiceNo || `INV-${Date.now().toString().slice(-6)}`);
         setPaymentMode(draft.paymentMode || 'Cash');
         setUpiId(draft.upiId || '');
+        setQrMode(draft.qrMode || 'details');
         setCashReceived(draft.cashReceived || 0);
         setNotes(draft.notes || '');
         setTemplate(draft.template || 'classic');
@@ -810,9 +813,18 @@ export default function InventoryReceipt() {
             </div>
             <div className="input-row">
               <div className="input-group">
+                <label className="input-label">QR Mode</label>
+                <select className="retro-select" value={qrMode} onChange={e => setQrMode(e.target.value as 'details' | 'upi')}>
+                  <option value="details">Detailed Bill QR</option>
+                  <option value="upi">UPI Payment QR</option>
+                </select>
+              </div>
+              <div className="input-group">
                 <label className="input-label">UPI ID (for QR)</label>
                 <input className="retro-input" value={upiId} onChange={e => setUpiId(e.target.value)} placeholder="shop@upi" />
               </div>
+            </div>
+            <div className="input-row">
               <div className="input-group">
                 <label className="input-label">Cash Received ₹</label>
                 <input className="retro-input" type="number" min={0} value={cashReceived} onChange={e => setCashReceived(parseFloat(e.target.value) || 0)} />
@@ -845,12 +857,14 @@ export default function InventoryReceipt() {
           {/* Items */}
           <div className="section-title">
             <span>Items ({items.length})</span>
-            <div className="flex gap-1.5 flex-wrap">
-              <button className={`retro-btn flex items-center gap-1 ${viewMode === 'card' ? 'active' : ''}`} style={viewMode === 'card' ? { background: '#ffb347', color: '#000', borderColor: '#ffb347' } : {}} onClick={() => setViewMode('card')}><IconCard className="w-3.5 h-3.5" /> Cards</button>
-              <button className={`retro-btn flex items-center gap-1 ${viewMode === 'table' ? 'active' : ''}`} style={viewMode === 'table' ? { background: '#ffb347', color: '#000', borderColor: '#ffb347' } : {}} onClick={() => setViewMode('table')}><IconTable className="w-3.5 h-3.5" /> Table</button>
-              <button className="retro-btn flex items-center gap-1" onClick={() => setShowBulk(!showBulk)}><IconBulk className="w-3.5 h-3.5" /> Bulk</button>
-              <button className="retro-btn flex items-center gap-1" onClick={() => setShowCost(!showCost)}><IconMoney className="w-3.5 h-3.5" /> {showCost ? 'Hide Cost' : 'Show Cost'}</button>
-              <button className="retro-btn flex items-center gap-1" onClick={addItem}><IconAdd className="w-3.5 h-3.5" /> Add</button>
+            <div className="flex flex-wrap gap-2 items-center justify-between sm:justify-start mb-4 p-3 bg-[#0f0f18] rounded-xl border border-[#2c2c38]">
+              <div className="flex gap-2 flex-wrap">
+                <button className={`retro-btn flex items-center gap-1 ${viewMode === 'card' ? 'bg-amber-400 text-black border-amber-400' : ''}`} onClick={() => setViewMode('card')}><IconCard className="w-3.5 h-3.5" /> Cards</button>
+                <button className={`retro-btn flex items-center gap-1 ${viewMode === 'table' ? 'bg-amber-400 text-black border-amber-400' : ''}`} onClick={() => setViewMode('table')}><IconTable className="w-3.5 h-3.5" /> Table</button>
+                <button className="retro-btn flex items-center gap-1" onClick={() => setShowBulk(!showBulk)}><IconBulk className="w-3.5 h-3.5" /> Bulk</button>
+                <button className="retro-btn flex items-center gap-1" onClick={() => setShowCost(!showCost)}><IconMoney className="w-3.5 h-3.5" /> {showCost ? 'Hide Cost' : 'Show Cost'}</button>
+              </div>
+              <button className="retro-btn flex items-center gap-1 bg-green-500/10 border-green-500/30 text-green-400 hover:bg-green-500 hover:text-black" onClick={addItem}><IconAdd className="w-3.5 h-3.5" /> Add Item</button>
             </div>
           </div>
 

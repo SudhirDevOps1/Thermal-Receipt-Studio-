@@ -1,198 +1,123 @@
 # Thermal Receipt Studio+
 
-> **Free, browser-based receipt printer & dukandar (shopkeeper) inventory billing tool.**
-> Create thermal receipts, GST invoices with live QR code & barcode, export PDF/Image, share on WhatsApp.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/SudhirDevOps1/Thermal-Receipt-Studio-)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-orange)](https://thermal-receipt-studio.vercel.app/)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-thermal--receipt--studio.vercel.app-orange?style=for-the-badge)](https://thermal-receipt-studio.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-SudhirDevOps1-black?style=for-the-badge&logo=github)](https://github.com/SudhirDevOps1)
+**Thermal Receipt Studio+** is a comprehensive, browser-based Point of Sale (POS) and billing suite designed for small businesses, shopkeepers, and freelancers. It enables users to generate professional thermal receipts, manage inventory, track customers, and analyze business performance entirely offline within the browser.
 
----
-
-## How It Looks
-
-> Replace `img1.png` through `img5.png` with your own screenshots.  
-> Just drop the images in the project root and they will show up here.
+> **Live Demo:** [thermal-receipt-studio.vercel.app](https://thermal-receipt-studio.vercel.app/)
+> **Author:** [SudhirDevOps1 (Sudhir Developer)](https://github.com/SudhirDevOps1)
 
 ---
 
-### Screenshot 1 — Home Dashboard
+## 📸 App Preview
 
-<p align="center">
-  <img src="./img1.png" alt="Home Dashboard" width="900" />
-</p>
+> *Replace `img1.png` through `img5.png` in the project root with your actual screenshots to showcase the UI.*
 
-<p align="center">
-  <em>The main dashboard with <strong>Thermal Receipt</strong> and <strong>Dukandar Inventory</strong> tabs.  
-  Clean dark theme, SVG icons, "How to Use" guide button, and smooth animations.</em>
-</p>
+| Home Dashboard | Billing & Inventory | Receipt with QR |
+| :---: | :---: | :---: |
+| ![Home](./img1.png) | ![Billing](./img2.png) | ![Receipt](./img3.png) |
+| *Clean dark UI with dual-tool tabs* | *Line-by-line billing with GST* | *Scannable QR with full invoice details* |
 
----
-
-### Screenshot 2 — Dukandar Inventory (Billing Form)
-
-<p align="center">
-  <img src="./img2.png" alt="Billing Form" width="900" />
-</p>
-
-<p align="center">
-  <em>The billing form with <strong>20+ shop presets</strong> (Himanshu Kirana, Aarif Clothes, Sumant Clinic, etc.).  
-  Add items line-by-line with name, qty, unit, price. Toggle Card/Table view. Set Discount, CGST, SGST.  
-  <strong>Auto-save draft</strong> every 10 seconds. Profit calculator with cost price column.</em>
-</p>
+| Export & Share | History & Analytics |
+| :---: | :---: |
+| ![Export](./img4.png) | ![History](./img5.png) |
+| *PDF, Image, WhatsApp sharing* | *Business BI, Stock & CRM* |
 
 ---
 
-### Screenshot 3 — Receipt Preview with Working QR Code
+## ✨ Key Features
 
-<p align="center">
-  <img src="./img3.png" alt="Receipt with QR" width="500" />
-</p>
+### 🧾 Billing & Receipts
+- **Thermal Receipt Generator:** Create stylish, print-ready receipts.
+- **Dukandar Inventory Billing:** Professional GST invoicing (CGST/SGST) with line-by-line items.
+- **25+ Ready Presets:** Pre-loaded templates for Kirana, Clothes, Clinics, Hardware, etc.
+- **Smart QR Codes:** Generate detailed bill QRs (shows all items/date/total when scanned) or UPI Payment QRs.
+- **Multi-Currency & Bilingual:** Supports INR, USD, EUR, etc., with English/Hindi toggle.
 
-<p align="center">
-  <em>The thermal receipt preview with a <strong>live, scannable QR code</strong>.  
-  Scan the QR with any phone camera and it instantly shows:</em>
-</p>
+### 📊 Business Intelligence & Management
+- **Real-Time Dashboard:** Visualize revenue trends, total orders, and average bill value.
+- **Stock Manager:** Track inventory levels with automatic low-stock alerts.
+- **Customer CRM:** Manage client databases, track visit history, and store birthdays.
 
-```
-=============================
-HIMANSHU KIRANA STORE
-=============================
-Invoice : INV-482910
-Date    : 06 Jun 2026
-Time    : 03:45 pm
-Customer: Rahul Kumar
-Payment : Cash
------------------------------
-1. Chini (Sugar)
-   2kg x ₹48 = ₹96
-2. Chai Patti (Tea)
-   1pkt x ₹120 = ₹120
-3. Aata 10kg
-   1pkt x ₹380 = ₹380
------------------------------
-Subtotal  : ₹596.00
-CGST 2.5% : +₹14.90
-SGST 2.5% : +₹14.90
-=============================
-TOTAL     : ₹625.80
-=============================
-Cash Rcvd : ₹700.00
-Change    : ₹74.20
-Note: Goods once sold will not be returned.
-```
-
-<p align="center">
-  <em>If you enter a <strong>UPI ID</strong>, the QR becomes a real <strong>scan-and-pay</strong> UPI payment code.</em>
-</p>
+### 🚀 Advanced Tools & Integrations
+- **E-Invoicing (IRN) Ready:** Local IRN simulator for testing government e-invoice workflows.
+- **Template Marketplace:** Import/Export community-designed receipt templates.
+- **OCR Intake:** Parse physical receipt text to auto-populate item lists.
+- **Hardware Readiness:** Check WebUSB/WebHID support for thermal printers and barcode scanners.
+- **Offline Data Pack:** Export all business data (receipts, stock, CRM) for cloud backup.
 
 ---
 
-### Screenshot 4 — Export, PDF, Image & WhatsApp Share
+## 🛠️ Tech Stack
 
-<p align="center">
-  <img src="./img4.png" alt="Export Options" width="900" />
-</p>
-
-<p align="center">
-  <em>One-click export as <strong>high-quality PNG image</strong> or <strong>thermal-size PDF</strong>.  
-  Share the full bill on <strong>WhatsApp</strong> as a formatted text message.  
-  <strong>No cut-off text</strong> — full receipt captured with fonts loaded.</em>
-</p>
-
----
-
-### Screenshot 5 — Receipt History, Search & Backup
-
-<p align="center">
-  <img src="./img5.png" alt="Receipt History" width="900" />
-</p>
-
-<p align="center">
-  <em>Save bills to history, <strong>search by invoice/customer/shop</strong>, reload old bills,  
-  duplicate as a new copy, or delete. <strong>Export/Import</strong> all data as a JSON backup file.  
-  Keyboard shortcuts for power users (Ctrl+S, Ctrl+P, Ctrl+E, etc.).</em>
-</p>
+- **Frontend:** React, TypeScript, Vite
+- **Styling:** Tailwind CSS, Custom CSS Animations
+- **Data Visualization:** Recharts
+- **Utilities:** 
+  - `qrcode` (Robust QR generation)
+  - `html2canvas` (DOM to Image conversion)
+  - `jspdf` (PDF generation)
+  - `html5-qrcode` (Camera scanning)
 
 ---
 
-## Features
+## 🚀 Getting Started
 
-| Category | Details |
-|----------|---------|
-| **Two Tools** | Creative Thermal Receipts + Dukandar Inventory billing |
-| **20+ Presets** | Himanshu Kirana, Aarif Clothes, Sumant Clinic, Sabzi Mandi, Hardware, and more |
-| **Live QR Code** | Scannable — shows every item, date, time, total. UPI payment QR if UPI ID is set |
-| **GST Billing** | CGST + SGST split, Discount %, auto grand total |
-| **Export** | High-quality PNG, thermal-size PDF, WhatsApp text share |
-| **History** | Save, search, load, duplicate, delete bills. JSON backup/restore |
-| **Profit Calc** | Cost price per item, total profit with percentage |
-| **Multi-Currency** | INR ₹, USD $, EUR €, GBP £, AED, SAR |
-| **Hindi/English** | Receipt language toggle |
-| **3 Templates** | Classic, Modern, Minimal receipt styles |
-| **Bulk Import** | Paste items: `Chini 2 kg @48, Tel 1 ltr @165` |
-| **Keyboard** | Ctrl+P Print, Ctrl+S Save, Ctrl+E Image, Ctrl+D PDF, etc. |
-| **Auto-Save** | Draft saved every 10 seconds |
-| **Responsive** | Mobile, tablet, desktop — Card/Table view toggle |
-| **SVG Icons** | All custom SVG, no emoji icons, no external CDN |
-| **Privacy** | 100% client-side — no data leaves your browser |
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
----
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
 
-## Tech Stack
+### Installation
 
-| Library | Purpose |
-|---------|---------|
-| React + Vite + TypeScript | App framework & bundler |
-| Tailwind CSS | Styling & responsive layout |
-| `qrcode` (npm) | Reliable QR generation (works in exports) |
-| `html2canvas` | DOM → image capture |
-| `jspdf` | PDF generation |
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/SudhirDevOps1/Thermal-Receipt-Studio-.git
+   cd Thermal-Receipt-Studio-
+   ```
 
----
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-## Quick Start
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
-```bash
-git clone https://github.com/SudhirDevOps1/Thermal-Receipt-Studio-.git
-cd Thermal-Receipt-Studio-
-npm install
-npm run dev      # start dev server
-npm run build    # production build
-```
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
 
 ---
 
-## Project Structure
+## 📚 Documentation
 
-```
-src/
-  App.tsx                  # App shell, tabs, header, help modal
-  components/
-    ThermalReceipt.tsx     # Creative receipt tool
-    InventoryReceipt.tsx   # Shop billing (presets, GST, history, QR)
-    GitHubWidget.tsx       # Developer profile widget
-    HelpModal.tsx          # In-app usage guide
-    Icons.tsx              # All SVG icons (40+)
-  index.css                # Theme, layout, receipt styles, animations
-public/
-  favicon.svg              # App logo / favicon
-GUIDE.md                   # Full step-by-step user guide
-README.md                  # This file
-img1.png – img5.png        # Your screenshots (add them here)
-```
+- **[GUIDE.md](./GUIDE.md)**: Complete user guide for Billing, Inventory, and CRM.
+- **[ADVANCED_TOOLS.md](./ADVANCED_TOOLS.md)**: Detailed guide on using the Advanced Tools tab (IRN, OCR, Hardware checks, etc.).
 
 ---
 
-## Documentation
+## 🤝 Contributing
 
-Full step-by-step guide with screenshots:  
-**[GUIDE.md](./GUIDE.md)** — covers both tools, bulk import, keyboard shortcuts, export, backup, FAQ, developer setup.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-You can also click the **"How to Use"** button inside the app (top-right corner).
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
-## License
+## 📄 License
 
-Open source & free forever.  
-Built with care by [SudhirDevOps1](https://github.com/SudhirDevOps1).
+Distributed under the MIT License. See `LICENSE` for more information.
+
+**Built with ❤️ by SudhirDevOps1**

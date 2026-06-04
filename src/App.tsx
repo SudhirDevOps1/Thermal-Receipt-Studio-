@@ -1,18 +1,28 @@
 import { useState } from 'react';
 import ThermalReceipt from './components/ThermalReceipt';
 import InventoryReceipt from './components/InventoryReceipt';
+import Dashboard from './components/Dashboard';
+import StockManager from './components/StockManager';
+import CustomerCRM from './components/CustomerCRM';
+import AdvancedTools from './components/AdvancedTools';
 import HelpModal from './components/HelpModal';
-import { IconReceipt, IconShop, IconBolt, IconHeart, IconInfo } from './components/Icons';
+import QRScannerModal from './components/QRScannerModal';
+import { IconReceipt, IconShop, IconBolt, IconHeart, IconInfo, IconTrendingUp, IconShoppingBag, IconUsers, IconCamera, IconSettings } from './components/Icons';
 
-type Tab = 'receipt' | 'inventory';
+type Tab = 'receipt' | 'inventory' | 'business' | 'stock' | 'crm' | 'advanced';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('receipt');
   const [showHelp, setShowHelp] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
 
   const tabs: { key: Tab; label: string; short: string; Icon: React.FC<{ className?: string }> }[] = [
-    { key: 'receipt', label: 'Thermal Receipt', short: 'Receipt', Icon: IconReceipt },
-    { key: 'inventory', label: 'Dukandar Inventory', short: 'Dukan', Icon: IconShop },
+    { key: 'receipt', label: 'Receipt Printer', short: 'Printer', Icon: IconReceipt },
+    { key: 'inventory', label: 'Dukandar Billing', short: 'Billing', Icon: IconShop },
+    { key: 'business', label: 'Business Dashboard', short: 'Stats', Icon: IconTrendingUp },
+    { key: 'stock', label: 'Stock Manager', short: 'Stock', Icon: IconShoppingBag },
+    { key: 'crm', label: 'Customer CRM', short: 'CRM', Icon: IconUsers },
+    { key: 'advanced', label: 'Advanced Tools', short: 'Tools', Icon: IconSettings },
   ];
 
   return (
@@ -34,6 +44,13 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
+            <button
+              onClick={() => setShowScanner(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1a1a28] border border-[#2c2c38] hover:border-blue-400 hover:text-blue-400 transition-all text-gray-300"
+            >
+              <IconCamera className="w-4 h-4" />
+              <span className="text-[10px] sm:text-xs font-medium hidden sm:inline">Scan QR</span>
+            </button>
             <button
               onClick={() => setShowHelp(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1a1a28] border border-[#2c2c38] hover:border-amber-400 hover:text-amber-400 transition-all text-gray-300"
@@ -67,6 +84,10 @@ export default function App() {
         <div key={activeTab} className="fade-in">
           {activeTab === 'receipt' && <ThermalReceipt />}
           {activeTab === 'inventory' && <InventoryReceipt />}
+          {activeTab === 'business' && <Dashboard />}
+          {activeTab === 'stock' && <StockManager />}
+          {activeTab === 'crm' && <CustomerCRM />}
+          {activeTab === 'advanced' && <AdvancedTools />}
         </div>
       </main>
 
@@ -78,11 +99,12 @@ export default function App() {
             <a href="https://github.com/SudhirDevOps1" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">SudhirDevOps1</a>
           </span>
           <span className="hidden sm:inline">&bull;</span>
-          <span>Thermal Receipt Studio+ v3.0 &mdash; Open Source & Free Forever</span>
+          <span>Thermal Receipt Studio+ v4.0 &mdash; Business BI, CRM & Stock Management Ready</span>
         </div>
       </footer>
 
       {showHelp && <HelpModal onClose={() => setShowHelp(false)} />}
+      {showScanner && <QRScannerModal onClose={() => setShowScanner(false)} />}
     </div>
   );
 }
