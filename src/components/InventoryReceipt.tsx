@@ -985,8 +985,8 @@ export default function InventoryReceipt() {
                       </div>
                       <div className="flex gap-1 flex-shrink-0">
                         <button className="retro-btn text-[10px]" onClick={() => loadReceipt(r)}>Load</button>
-                        <button className="retro-btn text-[10px]" onClick={() => { setInvoiceNo(`${r.id}-COPY`); setItems(r.items.map((it, idx) => ({ ...it, id: Date.now() + idx }))); }}>Dup</button>
-                        <button className="retro-btn text-[10px]" onClick={() => deleteReceipt(r.id)}>Del</button>
+                        <button className="retro-btn text-[10px]" onClick={() => { setInvoiceNo(`${r.id}-COPY`); setItems(r.items.map((it, idx) => ({ ...it, id: Date.now() + idx }))); }}>Duplicate</button>
+                        <button className="retro-btn text-[10px]" onClick={() => deleteReceipt(r.id)}>Delete</button>
                       </div>
                     </div>
                   ))}

@@ -27,6 +27,12 @@ body::before {
     radial-gradient(circle at 50% 100%, rgba(78, 205, 196, 0.04), transparent 50%);
   pointer-events: none;
   z-index: 0;
+  animation: ambientDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes ambientDrift {
+  0% { transform: translate3d(0, 0, 0) scale(1); filter: hue-rotate(0deg); }
+  100% { transform: translate3d(0, -18px, 0) scale(1.04); filter: hue-rotate(8deg); }
 }
 
 #root { position: relative; z-index: 1; min-height: 100vh; min-height: 100dvh; }
@@ -52,6 +58,36 @@ body::before {
   padding: 1rem;
   width: 100%;
   min-width: 0;
+  animation: panelRise 0.45s ease both;
+}
+
+@keyframes panelRise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-logo {
+  position: relative;
+  animation: logoPulse 3s ease-in-out infinite;
+}
+.app-logo::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 179, 71, 0.35);
+  opacity: 0;
+  animation: logoRing 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: translateY(0); box-shadow: 0 10px 20px rgba(255, 138, 61, 0.16); }
+  50% { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(255, 138, 61, 0.28); }
+}
+
+@keyframes logoRing {
+  0%, 100% { opacity: 0; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.08); }
 }
 @media (min-width: 640px) { .glass-panel { padding: 1.25rem; border-radius: 1.25rem; } }
 @media (min-width: 1024px) { .glass-panel { padding: 1.75rem; border-radius: 1.5rem; } }
@@ -130,6 +166,7 @@ body::before {
   color: #0B0B0B;
   border-color: #ffb347;
   transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 179, 71, 0.18);
 }
 .retro-btn:active { transform: translateY(0); }
 .retro-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -171,6 +208,12 @@ body::before {
   position: relative;
   width: 100%;
   max-width: 500px;
+  animation: printerFloat 5s ease-in-out infinite;
+}
+
+@keyframes printerFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 .printer-machine::before {
   content: '';
@@ -423,6 +466,12 @@ body::before {
   background: linear-gradient(135deg, #ffb347, #ff8a3d);
   color: #0B0B0B;
   box-shadow: 0 4px 12px rgba(255, 179, 71, 0.4);
+  animation: activeTabGlow 2.4s ease-in-out infinite;
+}
+
+@keyframes activeTabGlow {
+  0%, 100% { box-shadow: 0 4px 12px rgba(255, 179, 71, 0.32); }
+  50% { box-shadow: 0 6px 18px rgba(255, 179, 71, 0.5); }
 }
 
 /* ====== MAIN LAYOUT (TWO COL) ====== */
@@ -790,6 +839,14 @@ body::before {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ====== SCROLLBAR ====== */

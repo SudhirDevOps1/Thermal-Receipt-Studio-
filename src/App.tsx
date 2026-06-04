@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import ThermalReceipt from './components/ThermalReceipt';
 import InventoryReceipt from './components/InventoryReceipt';
-import GitHubWidget from './components/GitHubWidget';
 import HelpModal from './components/HelpModal';
 import { IconReceipt, IconShop, IconBolt, IconHeart, IconInfo } from './components/Icons';
 
@@ -22,7 +21,7 @@ export default function App() {
       <header className="border-b border-white/10 sticky top-0 z-20 bg-[#0B0B0B]/85 backdrop-blur-md">
         <div className="app-container py-3 sm:py-4 flex items-center justify-between gap-3">
           <div className="min-w-0 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+            <div className="app-logo w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
               <IconBolt className="w-5 h-5 text-black" />
             </div>
             <div className="min-w-0">
@@ -30,7 +29,7 @@ export default function App() {
                 Thermal Receipt Studio+
               </h1>
               <p className="text-gray-500 text-[10px] sm:text-xs md:text-sm mt-0.5 truncate">
-                Receipt Printer &bull; Dukandar Inventory &bull; by SudhirDevOps1
+                Receipt Printer &bull; Dukandar Inventory &bull; Free Billing Tool
               </p>
             </div>
           </div>
@@ -42,7 +41,6 @@ export default function App() {
               <IconInfo className="w-4 h-4" />
               <span className="text-[10px] sm:text-xs font-medium hidden sm:inline">How to Use</span>
             </button>
-            <GitHubWidget />
           </div>
         </div>
       </header>
