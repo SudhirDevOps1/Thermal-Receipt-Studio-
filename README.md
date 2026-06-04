@@ -21,7 +21,7 @@
 
 | Export & Share | History & Analytics |
 | :---: | :---: |
-| ![Export](./image/img4.png) | ![History](./image/img5.png) |
+| ![Export](./image/img4.jpg) | ![History](./image/img5.png) |
 | *PDF, Image, WhatsApp sharing* | *Business BI, Stock & CRM* |
 ## ✨ Key Features
 
