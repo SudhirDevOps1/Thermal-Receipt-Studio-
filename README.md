@@ -10,23 +10,19 @@
 > **Author:** [SudhirDevOps1 (Sudhir Developer)](https://github.com/SudhirDevOps1)
 
 ---
-
 ## 📸 App Preview
 
-> *Replace `img1.png` through `img5.png` in the project root with your actual screenshots to showcase the UI.*
+> *Replace `img1.png` through `img5.png` in the `image/` folder with your actual screenshots to showcase the UI.*
 
 | Home Dashboard | Billing & Inventory | Receipt with QR |
 | :---: | :---: | :---: |
-| ![Home](./img1.png) | ![Billing](./img2.png) | ![Receipt](./img3.png) |
+| ![Home](./image/img1.png) | ![Billing](./image/img2.png) | ![Receipt](./image/img3.png) |
 | *Clean dark UI with dual-tool tabs* | *Line-by-line billing with GST* | *Scannable QR with full invoice details* |
 
 | Export & Share | History & Analytics |
 | :---: | :---: |
-| ![Export](./img4.png) | ![History](./img5.png) |
+| ![Export](./image/img4.png) | ![History](./image/img5.png) |
 | *PDF, Image, WhatsApp sharing* | *Business BI, Stock & CRM* |
-
----
-
 ## ✨ Key Features
 
 ### 🧾 Billing & Receipts
