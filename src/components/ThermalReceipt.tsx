@@ -11,9 +11,9 @@ interface PresetData {
 }
 
 export default function ThermalReceipt() {
-  const [header, setHeader] = useState('OF ARTISTS GETTING PAID');
-  const [tagline, setTagline] = useState('THIS IS OUR FAVORITE SOUND');
-  const [client, setClient] = useState('LIL SPLICE');
+  const [header, setHeader] = useState('THERMAL RECEIPT STUDIO');
+  const [tagline, setTagline] = useState('YOUR CREATIVE RECEIPT MAKER');
+  const [client, setClient] = useState('GUEST USER');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [stat1L, setStat1L] = useState('TRACKS PRODUCED');
   const [stat1V, setStat1V] = useState('24');
@@ -189,7 +189,7 @@ export default function ThermalReceipt() {
       header, tagline, client, date, stat1L, stat1V, stat2L, stat2V,
       stat3L, stat3V, stat4L, stat4V, amount, asciiPreset, customAscii
     }));
-    alert('✅ Template saved!');
+    alert('Template saved!');
   };
 
   const loadTemplate = () => {
@@ -201,14 +201,14 @@ export default function ThermalReceipt() {
       setStat1L(d.stat1L); setStat1V(d.stat1V); setStat2L(d.stat2L); setStat2V(d.stat2V);
       setStat3L(d.stat3L); setStat3V(d.stat3V); setStat4L(d.stat4L); setStat4V(d.stat4V);
       setAmount(d.amount); setAsciiPreset(d.asciiPreset); setCustomAscii(d.customAscii);
-      alert('📂 Template loaded!');
+      alert('Template loaded!');
     } catch { alert('Load failed'); }
   };
 
   const copyAsText = () => {
     if (!receiptRef.current) return;
     const text = receiptRef.current.innerText;
-    navigator.clipboard.writeText(text).then(() => alert('📋 Copied!')).catch(() => alert('Could not copy'));
+    navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!')).catch(() => alert('Could not copy'));
   };
 
   const browserPrint = () => {
@@ -228,12 +228,12 @@ export default function ThermalReceipt() {
 
   const today = new Date().toISOString().slice(0, 10);
   const presets: { name: string; data: PresetData }[] = [
-    { name: '🎛️ Producer', data: { header: '🔥 OF ARTISTS GETTING PAID', tagline: 'BEATS THAT HIT HARD', client: 'DJ SPECTRUM', date: today, stat1L: 'MIXES MASTERED', stat1V: '18', stat2L: 'GLOBAL STREAMS', stat2V: '2.4M', stat3L: 'HITS', stat3V: '12', stat4L: 'PLATINUM', stat4V: 'YES', amount: '$ 12,750', asciiSelect: 'stars', customAscii: '[ 808 SLIDE ]' }},
-    { name: '💻 Dev Card', data: { header: '⚡ GEEK CODE RECEIPT', tagline: 'COMMITS & CAFFEINE', client: 'DEV OPS INC', date: today, stat1L: 'LINES OF CODE', stat1V: '8,420', stat2L: 'BUG FIXES', stat2V: '94', stat3L: 'TESTS PASSED', stat3V: '271', stat4L: 'REVIEWS', stat4V: '5/5', amount: '$ 3,250', asciiSelect: 'wave', customAscii: '{ while (true) cout << "beep"; }' }},
-    { name: '☕ Coffee', data: { header: '☕ COFFEE CORNER', tagline: 'ARTISAN BREW & VIBES', client: 'Caffeine Addict', date: today, stat1L: 'SHOTS PULLED', stat1V: '4', stat2L: 'PASTRY SCORE', stat2V: '10/10', stat3L: 'SYRUP', stat3V: 'Vanilla', stat4L: 'TEMP', stat4V: '160°F', amount: '$ 14.50', asciiSelect: 'custom', customAscii: '(  (  )  )  STEAM   ~~~' }},
-    { name: '🏋️ Gym', data: { header: '💪 IRON TEMPLE GYM', tagline: 'NO PAIN NO GAIN', client: 'BEAST MODE', date: today, stat1L: 'SESSIONS', stat1V: '42', stat2L: 'HOURS', stat2V: '86.5', stat3L: 'PRs', stat3V: '7', stat4L: 'STREAK', stat4V: '21 DAYS', amount: '$ 89.99', asciiSelect: 'stars', customAscii: '[  D E A D L I F T  ]' }},
-    { name: '🎨 Freelance', data: { header: '🎨 CREATIVE INVOICE', tagline: 'DESIGN THAT CONVERTS', client: 'ACME CORP', date: today, stat1L: 'HOURS BILLED', stat1V: '47', stat2L: 'REVISIONS', stat2V: '3', stat3L: 'ASSETS', stat3V: '24', stat4L: 'RATING', stat4V: '5/5', amount: '$ 2,850', asciiSelect: 'wave', customAscii: '~ * ~  C R E A T I V E  ~ * ~' }},
-    { name: '🎫 Event', data: { header: '🎟️ EVENT PASS', tagline: 'ADMIT ONE - VIP ACCESS', client: 'GUEST', date: today, stat1L: 'TICKET NO', stat1V: '#A-742', stat2L: 'SEAT', stat2V: 'ROW 5 / SEAT 12', stat3L: 'GATE', stat3V: 'B', stat4L: 'TYPE', stat4V: 'VIP', amount: '$ 150.00', asciiSelect: 'custom', customAscii: '◆ ◆ ◆  E N J O Y  ◆ ◆ ◆' }},
+    { name: 'Producer', data: { header: 'OF ARTISTS GETTING PAID', tagline: 'BEATS THAT HIT HARD', client: 'DJ SPECTRUM', date: today, stat1L: 'MIXES MASTERED', stat1V: '18', stat2L: 'GLOBAL STREAMS', stat2V: '2.4M', stat3L: 'HITS', stat3V: '12', stat4L: 'PLATINUM', stat4V: 'YES', amount: '$ 12,750', asciiSelect: 'stars', customAscii: '[ 808 SLIDE ]' }},
+    { name: 'Dev Card', data: { header: 'GEEK CODE RECEIPT', tagline: 'COMMITS & CAFFEINE', client: 'DEV OPS INC', date: today, stat1L: 'LINES OF CODE', stat1V: '8,420', stat2L: 'BUG FIXES', stat2V: '94', stat3L: 'TESTS PASSED', stat3V: '271', stat4L: 'REVIEWS', stat4V: '5/5', amount: '$ 3,250', asciiSelect: 'wave', customAscii: '{ while (true) cout << "beep"; }' }},
+    { name: 'Coffee', data: { header: 'COFFEE CORNER', tagline: 'ARTISAN BREW & VIBES', client: 'Caffeine Addict', date: today, stat1L: 'SHOTS PULLED', stat1V: '4', stat2L: 'PASTRY SCORE', stat2V: '10/10', stat3L: 'SYRUP', stat3V: 'Vanilla', stat4L: 'TEMP', stat4V: '160°F', amount: '$ 14.50', asciiSelect: 'custom', customAscii: '(  (  )  )  STEAM   ~~~' }},
+    { name: 'Gym', data: { header: 'IRON TEMPLE GYM', tagline: 'NO PAIN NO GAIN', client: 'BEAST MODE', date: today, stat1L: 'SESSIONS', stat1V: '42', stat2L: 'HOURS', stat2V: '86.5', stat3L: 'PRs', stat3V: '7', stat4L: 'STREAK', stat4V: '21 DAYS', amount: '$ 89.99', asciiSelect: 'stars', customAscii: '[  D E A D L I F T  ]' }},
+    { name: 'Freelance', data: { header: 'CREATIVE INVOICE', tagline: 'DESIGN THAT CONVERTS', client: 'ACME CORP', date: today, stat1L: 'HOURS BILLED', stat1V: '47', stat2L: 'REVISIONS', stat2V: '3', stat3L: 'ASSETS', stat3V: '24', stat4L: 'RATING', stat4V: '5/5', amount: '$ 2,850', asciiSelect: 'wave', customAscii: '~ * ~  C R E A T I V E  ~ * ~' }},
+    { name: 'Event', data: { header: 'EVENT PASS', tagline: 'ADMIT ONE - VIP ACCESS', client: 'GUEST', date: today, stat1L: 'TICKET NO', stat1V: '#A-742', stat2L: 'SEAT', stat2V: 'ROW 5 / SEAT 12', stat3L: 'GATE', stat3V: 'B', stat4L: 'TYPE', stat4V: 'VIP', amount: '$ 150.00', asciiSelect: 'custom', customAscii: '< < <  E N J O Y  > > >' }},
   ];
 
   const getAsciiLine = () => {
@@ -250,24 +250,24 @@ export default function ThermalReceipt() {
       {/* LEFT FORM */}
       <div className="split-col">
         <div className="glass-panel">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4 gradient-title">⚡ Receipt Studio+</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 gradient-title">Receipt Studio+</h2>
 
-          <div className="section-title"><span>🎨 Quick Presets</span></div>
+          <div className="section-title"><span>Quick Presets</span></div>
           <div className="btn-group">
             {presets.map(p => (
               <button key={p.name} className="retro-btn" onClick={() => applyPreset(p.data)}>{p.name}</button>
             ))}
           </div>
 
-          <div className="section-title"><span>🛠️ Tools</span></div>
+          <div className="section-title"><span>Tools</span></div>
           <div className="btn-group">
-            <button className="retro-btn" onClick={saveTemplate}>💾 Save</button>
-            <button className="retro-btn" onClick={loadTemplate}>📂 Load</button>
-            <button className="retro-btn" onClick={copyAsText}>📋 Copy</button>
-            <button className="retro-btn" onClick={browserPrint}>🖨️ Print</button>
+            <button className="retro-btn" onClick={saveTemplate}>Save</button>
+            <button className="retro-btn" onClick={loadTemplate}>Load</button>
+            <button className="retro-btn" onClick={copyAsText}>Copy</button>
+            <button className="retro-btn" onClick={browserPrint}>Print</button>
           </div>
 
-          <div className="section-title"><span>📇 Basic Info</span></div>
+          <div className="section-title"><span>Basic Info</span></div>
           <div className="flex flex-col gap-3">
             <div className="input-group">
               <label className="input-label">Header Title</label>
@@ -279,17 +279,17 @@ export default function ThermalReceipt() {
             </div>
             <div className="input-row">
               <div className="input-group">
-                <label className="input-label">👤 Name</label>
+                <label className="input-label">Name</label>
                 <input className="retro-input" value={client} onChange={e => setClient(e.target.value)} />
               </div>
               <div className="input-group">
-                <label className="input-label">📅 Date</label>
+                <label className="input-label">Date</label>
                 <input className="retro-input" value={date} onChange={e => setDate(e.target.value)} />
               </div>
             </div>
           </div>
 
-          <div className="section-title"><span>📊 Statistics</span></div>
+          <div className="section-title"><span>Statistics</span></div>
           <div className="flex flex-col gap-3">
             <div className="input-row">
               <div className="input-group">
@@ -337,14 +337,14 @@ export default function ThermalReceipt() {
             </div>
           </div>
 
-          <div className="section-title"><span>🎨 Customization</span></div>
+          <div className="section-title"><span>Customization</span></div>
           <div className="flex flex-col gap-3">
             <div className="input-group">
               <label className="input-label">ASCII Art Preset</label>
               <select className="retro-select" value={asciiPreset} onChange={e => setAsciiPreset(e.target.value)}>
-                <option value="stars">✦ ✦ ✦  BOOM  ✦ ✦ ✦</option>
+                <option value="stars">* * *  BOOM  * * *</option>
                 <option value="wave">~ * ~ * ~  REWIND  ~ * ~ * ~</option>
-                <option value="custom">✂️ Custom ASCII</option>
+                <option value="custom">--- Custom ASCII ---</option>
               </select>
             </div>
             <div className="input-group">
@@ -353,7 +353,7 @@ export default function ThermalReceipt() {
             </div>
             <div className="input-row">
               <div className="input-group">
-                <label className="input-label">📄 Paper Texture</label>
+                <label className="input-label">Paper Texture</label>
                 <select className="retro-select" value={paperTexture} onChange={e => setPaperTexture(e.target.value)}>
                   <option value="none">None</option>
                   <option value="noise">Noise / Speckle</option>
@@ -361,7 +361,7 @@ export default function ThermalReceipt() {
                 </select>
               </div>
               <div className="input-group">
-                <label className="input-label">🔊 Sound FX</label>
+                <label className="input-label">Sound FX</label>
                 <select className="retro-select" value={soundOn ? 'on' : 'off'} onChange={e => setSoundOn(e.target.value === 'on')}>
                   <option value="on">ON (printer buzz)</option>
                   <option value="off">OFF</option>
@@ -370,21 +370,21 @@ export default function ThermalReceipt() {
             </div>
             <div className="input-row">
               <div className="input-group">
-                <label className="input-label">🎨 Receipt Style</label>
+                <label className="input-label">Receipt Style</label>
                 <select className="retro-select" value={receiptTemplate} onChange={e => setReceiptTemplate(e.target.value as any)}>
-                  <option value="retro">📠 Retro</option>
-                  <option value="clean">✨ Clean</option>
-                  <option value="bold">🔥 Bold</option>
+                  <option value="retro">Retro</option>
+                  <option value="clean">Clean</option>
+                  <option value="bold">Bold</option>
                 </select>
               </div>
               <div className="input-group">
-                <label className="input-label">📏 Receipt Width (px)</label>
+                <label className="input-label">Receipt Width (px)</label>
                 <input className="retro-input" type="number" min={320} max={600} step={10} value={receiptWidth} onChange={e => setReceiptWidth(parseInt(e.target.value) || 420)} />
               </div>
             </div>
           </div>
 
-          <button className="print-btn mt-5" onClick={handlePrint}>📠 Print Receipt</button>
+          <button className="print-btn mt-5" onClick={handlePrint}>Print Receipt</button>
         </div>
       </div>
 
@@ -398,8 +398,8 @@ export default function ThermalReceipt() {
                 <div style={{ textAlign: 'center', fontSize: receiptTemplate === 'bold' ? '18px' : '16px', fontWeight: 800, wordBreak: 'break-word' }}>{header}</div>
                 <div className="receipt-tagline">{tagline}</div>
                 <div className="receipt-stars">{'*'.repeat(28)}</div>
-                <div className="receipt-flex-row"><span>👤 CLIENT</span><span>{client}</span></div>
-                <div className="receipt-flex-row"><span>📅 DATE</span><span>{date}</span></div>
+                <div className="receipt-flex-row"><span>CLIENT</span><span>{client}</span></div>
+                <div className="receipt-flex-row"><span>DATE</span><span>{date}</span></div>
                 <div className="receipt-flex-row"><span>{stat1L || 'STAT'}</span><span>{stat1V}</span></div>
                 <div className="receipt-flex-row"><span>{stat2L || 'STAT'}</span><span>{stat2V}</span></div>
                 {stat3L && <div className="receipt-flex-row"><span>{stat3L}</span><span>{stat3V}</span></div>}
@@ -414,19 +414,19 @@ export default function ThermalReceipt() {
                     {qrDataUrl ? <img src={qrDataUrl} alt="Receipt QR" width={80} height={80} /> : <span style={{ fontSize: '9px' }}>QR loading...</span>}
                   </div>
                 </div>
-                <div className="receipt-footer">WWW.PRIVMITLAB.STUDIO</div>
+                <div className="receipt-footer">THERMAL RECEIPT STUDIO+</div>
                 <div className="receipt-stars">{'*'.repeat(28)}</div>
-                <div style={{ fontSize: '9px', textAlign: 'center', marginTop: '6px' }}>⚡ KEEP THE VIBE ⚡</div>
+                <div style={{ fontSize: '9px', textAlign: 'center', marginTop: '6px' }}>THANK YOU FOR YOUR BUSINESS</div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="btn-group justify-center">
-          <button className="retro-btn" onClick={exportImage}>🖼️ Image</button>
-          <button className="retro-btn" onClick={exportPDF}>📄 PDF</button>
+          <button className="retro-btn" onClick={exportImage}>Image</button>
+          <button className="retro-btn" onClick={exportPDF}>PDF</button>
         </div>
-        <p className="text-[11px] text-gray-500 text-center">⬆️ Paper roll + QR + Barcode + Stats</p>
+        <p className="text-[11px] text-gray-500 text-center">Paper roll + QR + Barcode + Stats</p>
       </div>
     </div>
   );

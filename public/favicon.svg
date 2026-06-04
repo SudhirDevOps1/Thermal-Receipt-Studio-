@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset="1" stop-color="#ff6b35"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0B0B0B"/>
+  <!-- receipt paper -->
+  <path d="M18 12 h28 v40 l-4 -3 -4 3 -4 -3 -4 3 -4 -3 -4 3 z" fill="url(#g)"/>
+  <!-- receipt lines -->
+  <rect x="23" y="20" width="18" height="3" rx="1.5" fill="#0B0B0B"/>
+  <rect x="23" y="27" width="18" height="2.5" rx="1.25" fill="#0B0B0B" opacity="0.7"/>
+  <rect x="23" y="33" width="12" height="2.5" rx="1.25" fill="#0B0B0B" opacity="0.7"/>
+  <!-- bolt -->
+  <path d="M34 38 l-7 9 h5 l-1 6 7 -9 h-5 z" fill="#0B0B0B"/>
+</svg>
